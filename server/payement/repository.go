@@ -22,3 +22,7 @@ func NewPayementRepository(db *gorm.DB) *PayementRepository {
 	return &PayementRepository{db}
 }
 
+func (repo *PayementRepository) Create(payement Payement) (Payement, error) {
+	repo.db.Create(&payement)
+	return payement, nil
+}
