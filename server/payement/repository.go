@@ -5,24 +5,28 @@ import (
 	"gorm.io/gorm"
 )
 
-type IPayementRepository interface {
-	FindAll() ([]Payement, error)
-	FindById(id int) (Payement, error)
+type Repository interface {
+	// FindAll() ([]Payement, error)
+	// FindById(id int) (Payement, error)
 	Create(payement Payement) (Payement, error)
-	Update(payement Payement) (Payement, error)
-	Delete(id int) error
-	Stream() (Payement, error)
+	// Update(payement Payement) (Payement, error)
+	// Delete(id int) error
+	// Stream() (Payement, error)
 }
 
-type PayementRepository struct {
+type repository struct {
 	db *gorm.DB
 }
 
-func NewPayementRepository(db *gorm.DB) *PayementRepository {
-	return &PayementRepository{db}
+func NewPayementRepository(db *gorm.DB) *repository {
+	return &repository{db}
 }
 
-func (repo *PayementRepository) Create(payement Payement) (Payement, error) {
+func (repo *repository) Create(payement Payement) (Payement, error) {
 	repo.db.Create(&payement)
+
+	// save payement in db
+	repo.db.Save(&payement)
 	return payement, nil
 }
+

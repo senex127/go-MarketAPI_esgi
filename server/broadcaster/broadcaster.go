@@ -1,4 +1,5 @@
 package broadcast
+import "fmt"
 
 type broadcaster struct {
 	input chan interface{}
@@ -84,6 +85,8 @@ func (b *broadcaster) Close() error {
 
 // Submit an item to be broadcast to all listeners.
 func (b *broadcaster) Submit(m interface{}) {
+
+	fmt.Println("submit")
 	if b != nil {
 		b.input <- m
 	}
